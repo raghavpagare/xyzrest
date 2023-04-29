@@ -9,11 +9,9 @@ app.use(express.static("./public"));
 
 const mqtt = require('mqtt');
 let options = {
-    host: 'b828e0a3533442e38f99d1d73736d077.s2.eu.hivemq.cloud',
-    port: 8883,
-    protocol: 'mqtts',
-    username: 'xyzrest',
-    password: 'Golu@123'
+    host: 'broker.hivemq.com',
+    port: 1883,
+    protocol: 'mqtt'
 }
 
 // initialize the MQTT client
@@ -39,7 +37,6 @@ client.subscribe('tableNumber');
 // publish message 'Hello' to topic 'my/test/topic'
 app.get("/placeOrder/:tableNumber", (req, res) => {
     let tableNumber = req.params.tableNumber;
-    
     client.publish('tableNumber', `${tableNumber}`);
     res.json({message: "Ordered Successfully"});
 })
